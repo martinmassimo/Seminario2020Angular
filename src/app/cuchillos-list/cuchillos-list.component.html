@@ -1,0 +1,25 @@
+<table class="table m-3">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Comprar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cuchillo of cuchillos">
+            <td>{{cuchillo.nombre}}</td>
+            <td>{{cuchillo.tipo}}</td>
+            <td>{{cuchillo.precio | currency: 'USD'}}</td>
+            <td>
+                <span *ngIf="cuchillo.stock==0; else stock" class="badge badge-danger">Sin stock</span>
+                <ng-template #stock>
+                    <span>{{cuchillo.stock}}</span>
+                </ng-template>
+            </td>
+            <app-input-integer [cuchillo]="cuchillo" *ngIf="cuchillo.stock"></app-input-integer>
+        </tr>
+    </tbody>
+</table>
