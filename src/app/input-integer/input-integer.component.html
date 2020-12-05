@@ -1,5 +1,8 @@
-<td>
+<td *ngIf="cuchillo.stock; else vacio">
     <button class="btn btn-primary btn-sm" (click)="restarCantidad(cuchillo)">-</button>
     <input type="number" class="m-2" [(ngModel)]="cuchillo.cantidad" (keyup)="cambioCantidad(cuchillo)">
     <button class="btn btn-primary btn-sm" (click)="sumarCantidad(cuchillo)">+</button>
 </td>
+<ng-template #vacio>
+    <td></td>
+</ng-template>

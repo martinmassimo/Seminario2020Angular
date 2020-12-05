@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CuchilloDataService } from '../cuchillo-data.service';
+import { CuchillosCarritoService } from '../cuchillos-carrito.service';
 import { Cuchillo } from './cuchillo';
 
 @Component({
@@ -8,34 +10,22 @@ import { Cuchillo } from './cuchillo';
 })
 export class CuchillosListComponent implements OnInit {
 
-  cuchillos : Cuchillo [] = [
-    {
-      "nombre" : "Regional",
-      "tipo" : "Puñal",
-      "precio" : 1200,
-      "stock" : 0,
-      "cantidad" : 0,
-    },
-    {
-      "nombre" : "Alpaca",
-      "tipo" : "Daga",
-      "precio" : 2600,
-      "stock" : 9,
-      "cantidad" : 0,
-    },
-    {
-      "nombre" : "Trenzado",
-      "tipo" : "Puñal",
-      "precio" : 1800,
-      "stock" : 16,
-      "cantidad" : 0,
-    }
-  ]
-  constructor() { }
+  cuchillos : Cuchillo [] = [];
+  
+  constructor(
+    private carrito : CuchillosCarritoService,
+    private cuchillosDataService: CuchilloDataService) {
+   }
 
   ngOnInit(): void {
+    this.cuchillosDataService.getAll().subscribe(cuchillos => this.cuchillos = cuchillos);
   }
 
-
-
+  agregarCarrito(cuchillo: Cuchillo): void{
+    if(cuchillo.cantidad>0){
+      cuchillo.stock -= cuchillo.cantidad;
+      this.carrito.agregarCarrito(cuchillo);
+      cuchillo.cantidad = 0;
+    }
+  }
 }

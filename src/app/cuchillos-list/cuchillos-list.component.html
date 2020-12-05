@@ -5,7 +5,7 @@
             <th>Tipo</th>
             <th>Precio</th>
             <th>Cantidad</th>
-            <th>Comprar</th>
+            <th colspan=2>Comprar</th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +19,10 @@
                     <span>{{cuchillo.stock}}</span>
                 </ng-template>
             </td>
-            <app-input-integer [cuchillo]="cuchillo" *ngIf="cuchillo.stock"></app-input-integer>
+            <app-input-integer [cuchillo]="cuchillo" ></app-input-integer>
+            <td>
+                <button class="btn btn-primary" (click)="agregarCarrito(cuchillo)">Comprar</button>
+            </td>
         </tr>
     </tbody>
 </table>
